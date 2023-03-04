@@ -33,10 +33,26 @@ kotlin {
 }
 
 publishing {
+    val spaceUsername: String? by project
+    val spacePassword: String? by project
+
+    publications {
+        create<MavenPublication>("firebaseBindings") {
+            groupId = "dev.bitspittle"
+            artifactId = "firebase-kotlin-bindings"
+            version = "0.0.1"
+
+            from(components["kotlin"])
+        }
+    }
+
     repositories {
         maven {
-            group = project.group
-            version = project.version.toString()
+            url = uri("https://maven.pkg.jetbrains.space/tables/p/tables/cometes")
+            credentials {
+                username = spaceUsername
+                password = spacePassword
+            }
         }
     }
 }
